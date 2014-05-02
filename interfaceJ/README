@@ -1,0 +1,51 @@
+Implemented by interfaceJ group
+
+int intfj_runImageJ(int jobId, std::string image, std::string macro, std::string outputdir, std::string imageJPath);
+	Prepares the macro text and runs fiji with interfaceJ
+	Reports saved files, errors, and progress
+	Blocks until imageJ exits and output log is saved
+	
+	jobId = job id for the current job
+	image = absolute path to input image
+	macro = text for macro (not a file name)
+	outputdir = absolute path to output location (must be created before calling intfj_runImageJ)
+	imageJPath = absolute path to fiji (for valar: /usr/local/imagej/Fiji.app)
+	
+	returns: 0 on success, non-zero on fail
+	
+int intfj_kill();
+	kills the imageJ child process
+	intfj_runImageJ should return after this is called
+	
+	returns: 0 on success, non-zero on fail
+	
+	
+	
+
+Implemented by mpi group
+
+	
+void node_reportProgress(int percent);
+	passes current progess of imageJ macro to node
+	
+	percent = 0-100
+	
+void node_reportSavedImage(std::string file);
+	passes absolute path of the saved output image of imageJ
+	
+	file = path to output image
+	
+void node_reportSavedData(std::string file);
+	passes absolute path of the saved output data/results file of imageJ
+	
+	file = path to output data
+	
+void node_reportError(std::string error);
+	passes a string containing text of an error that has occurred in imageJ
+	
+	error = text of error
+	
+void node_reportFinished(int exitCode)
+	reports that imageJ has completed
+	
+	exitCode = 0 on success, non-zero on fail
